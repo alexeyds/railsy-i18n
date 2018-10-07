@@ -1,0 +1,21 @@
+{
+  "name": "railsy_i18n",
+  "version": "0.1.0",
+  "description": "Node.js adaptation of Ruby I18n library",
+  "main": "index.js",
+  "scripts": {
+    "test": "./test.sh test",
+    "eslint": "./node_modules/.bin/eslint {lib,test}/**/*{js,jsx}"
+  },
+  "author": "Alexey D",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "enhanced-tape-runner": "^1.0.0-rc.2",
+    "eslint": "^5.6.1",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1"
+  }
+}

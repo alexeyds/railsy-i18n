@@ -1,0 +1,23 @@
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+
+  "ignore": [
+    "lib"
+  ],
+
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./lib"
+        ],
+        "alias": {
+          "test": "./test"
+        }
+      }
+    ]
+  ]
+}
