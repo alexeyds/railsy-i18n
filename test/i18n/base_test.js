@@ -3,12 +3,14 @@ import I18nBase from "i18n/base";
 
 test("i18n/base", function(t) {
   t.test("string translations", function(t) {
-    let result = new I18nBase({foo: {bar: "foo"}}).t("foo.bar");
+    let result = new I18nBase({foo: {bar: "translation"}}).t("foo.bar");
 
-    t.equal(result.translation, "foo", "returns translation");
-    t.equal(result.isTranslated, true, "returns isTranslated: true");
-    t.equal(result.path, "foo.bar", "returns searched path");
-    t.equal(result.stoppedAt, "foo.bar", "returns stoppedAt");
+    t.equal(result.translation, "translation");
+    t.equal(result.isTranslated, true);
+    t.equal(result.path, "foo.bar");
+    t.equal(result.stoppedAt, "foo.bar");
+    t.equal(result.extraInterpolationArguments, undefined);
+    t.equal(result.remainingPlaceholders, undefined);
     
     t.end();
   });
@@ -36,6 +38,8 @@ test("i18n/base", function(t) {
     let result = new I18nBase({a: "foo %{bar}"}).t("a", {bar: "bar"});
 
     t.equal(result.translation, "foo bar", "replaces placeholders in string");
+    t.equal(result.extraInterpolationArguments, undefined, "returns extraInterpolationArguments: undefined");
+    t.equal(result.remainingPlaceholders, undefined, "returns remainingPlaceholders: undefined");
     
     t.end();
   });
@@ -45,6 +49,52 @@ test("i18n/base", function(t) {
 
     t.equal(result.translation, 1, "doesn't try to replace placeholders in non-string object");
     
+    t.end();
+  });
+
+  t.test("extra interpolation arguments", function(t) {
+    let result = new I18nBase({a: "%{bar}"}).t("a", {bar: "bar", foo: "foo"});
+
+    t.same(result.extraInterpolationArguments, {foo: "foo"}, "returns object with unused arguments");
+
+    t.end();
+  });
+
+  t.test("remaining placeholders in string", function(t) {
+    let result = new I18nBase({a: "%{bar} %{foo}"}).t("a", {bar: "bar"});
+
+    t.same(result.remainingPlaceholders, {foo: "%{foo}"}, "returns object with remaining placeholders");
+
+    t.end();
+  });
+
+  t.end();
+});
+
+test("i18n/base config", function(t) {
+  t.test("scope option", function(t) {
+    let result = new I18nBase({foo: {bar: "translation"}}, {scope: "foo"}).t("bar");
+
+    t.equal(result.translation, "translation", "searches for translation in provided scope");
+
+    t.end();
+  });
+
+  t.test("fallbackI18n option", function(t) {
+    let fallbackI18n = new I18nBase({foo: "foo"});
+    let result = new I18nBase({}, {fallbackI18n}).t("foo");
+
+    t.equal(result.translation, "foo", "uses fallbackI18n to provide missing translations");
+
+    t.end();
+  });
+
+  t.test("fallbackI18n option with scope option", function(t) {
+    let fallbackI18n = new I18nBase({foo: "foo"});
+    let result = new I18nBase({}, {fallbackI18n, scope: "bar"}).t("foo");
+
+    t.equal(result.translation, "foo", "passes unscoped path to fallbackI18n");
+
     t.end();
   });
 
