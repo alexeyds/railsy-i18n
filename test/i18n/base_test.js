@@ -7,10 +7,13 @@ test("i18n/base", function(t) {
 
     t.equal(result.translation, "translation");
     t.equal(result.isTranslated, true);
-    t.equal(result.path, "foo.bar");
-    t.equal(result.stoppedAt, "foo.bar");
-    t.equal(result.extraInterpolationArguments, undefined);
-    t.equal(result.remainingPlaceholders, undefined);
+
+    t.equal(result.paths.original, "foo.bar");
+    t.equal(result.paths.scoped, "foo.bar");
+    t.equal(result.paths.stoppedAt, "foo.bar");
+
+    t.equal(result.interpolation.extraArguments, undefined);
+    t.equal(result.interpolation.remainingPlaceholders, undefined);
     
     t.end();
   });
@@ -20,7 +23,7 @@ test("i18n/base", function(t) {
 
     t.equal(result.translation, undefined, "returns translation: undefined");
     t.equal(result.isTranslated, false, "returns isTranslated: false");
-    t.equal(result.stoppedAt, "foo", "returns correct stoppedAt location");
+    t.equal(result.paths.stoppedAt, "foo", "returns correct stoppedAt location");
     
     t.end();
   });
@@ -38,8 +41,8 @@ test("i18n/base", function(t) {
     let result = new I18nBase({a: "foo %{bar}"}).t("a", {bar: "bar"});
 
     t.equal(result.translation, "foo bar", "replaces placeholders in string");
-    t.equal(result.extraInterpolationArguments, undefined, "returns extraInterpolationArguments: undefined");
-    t.equal(result.remainingPlaceholders, undefined, "returns remainingPlaceholders: undefined");
+    t.equal(result.interpolation.extraArguments, undefined, "returns extraInterpolationArguments: undefined");
+    t.equal(result.interpolation.remainingPlaceholders, undefined, "returns remainingPlaceholders: undefined");
     
     t.end();
   });
@@ -55,7 +58,7 @@ test("i18n/base", function(t) {
   t.test("extra interpolation arguments", function(t) {
     let result = new I18nBase({a: "%{bar}"}).t("a", {bar: "bar", foo: "foo"});
 
-    t.same(result.extraInterpolationArguments, {foo: "foo"}, "returns object with unused arguments");
+    t.same(result.interpolation.extraArguments, {foo: "foo"}, "returns object with unused arguments");
 
     t.end();
   });
@@ -63,7 +66,7 @@ test("i18n/base", function(t) {
   t.test("remaining placeholders in string", function(t) {
     let result = new I18nBase({a: "%{bar} %{foo}"}).t("a", {bar: "bar"});
 
-    t.same(result.remainingPlaceholders, {foo: "%{foo}"}, "returns object with remaining placeholders");
+    t.same(result.interpolation.remainingPlaceholders, {foo: "%{foo}"}, "returns object with remaining placeholders");
 
     t.end();
   });
@@ -76,6 +79,8 @@ test("i18n/base config", function(t) {
     let result = new I18nBase({foo: {bar: "translation"}}, {scope: "foo"}).t("bar");
 
     t.equal(result.translation, "translation", "searches for translation in provided scope");
+    t.equal(result.paths.original, "bar", "returns path passed to it unchanged");
+    t.equal(result.paths.scoped, "foo.bar");
 
     t.end();
   });
