@@ -56,9 +56,9 @@ test("i18n/base", function(t) {
   });
 
   t.test("extra interpolation arguments", function(t) {
-    let result = new I18nBase({a: "%{bar}"}).t("a", {bar: "bar", foo: "foo"});
+    let result = new I18nBase({a: "%{bar}"}).t("a", {bar: "bar", foo1: "foo"});
 
-    t.same(result.interpolation.unusedPlaceholders, {foo: "foo"}, "returns object with unused arguments");
+    t.same(result.interpolation.unusedPlaceholders, ["%{foo1}"], "returns array of unused arguments");
 
     t.end();
   });
@@ -66,7 +66,15 @@ test("i18n/base", function(t) {
   t.test("remaining placeholders in string", function(t) {
     let result = new I18nBase({a: "%{bar} %{foo}"}).t("a", {bar: "bar"});
 
-    t.same(result.interpolation.remainingPlaceholders, {foo: "%{foo}"}, "returns object with remaining placeholders");
+    t.same(result.interpolation.remainingPlaceholders, ["foo"], "returns array of remaining placeholders");
+
+    t.end();
+  });
+
+  t.test("remaining placeholders in string without interpolation args", function(t) {
+    let result = new I18nBase({a: "%{bar} %{foo}"}).t("a");
+
+    t.same(result.interpolation.remainingPlaceholders, ["bar", "foo"], "returns array of remaining placeholders");
 
     t.end();
   });
