@@ -79,6 +79,15 @@ test("i18n/base", function(t) {
     t.end();
   });
 
+  t.test("undefined placeholders", function(t) {
+    let result = new I18nBase({a: "%{bar}"}).t("a", {bar: undefined});
+
+    t.same(result.interpolation.undefinedPlaceholders, ["bar"], "returns array of undefined placeholders");
+    t.equal(result.translation, "%{bar}", "doesn't replace undefined placeholders in translation");
+
+    t.end();
+  });
+
   t.end();
 });
 

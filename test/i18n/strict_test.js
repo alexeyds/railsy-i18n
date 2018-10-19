@@ -40,5 +40,17 @@ test("I18n/strict", function(t) {
     t.end();
   });
 
+  t.test("undefined placeholders", function(t) {
+    let i = new I18nStrict({a: "foo %{bar}"});
+
+    let test = () => i.t("a", {bar: undefined});
+
+    t.throws(test, /Undefined placeholder value/, "throws error");
+    t.throws(test, /bar/, "includes undefined placeholders into error");
+
+    t.end();
+  });
+
+
   t.end();
 });
