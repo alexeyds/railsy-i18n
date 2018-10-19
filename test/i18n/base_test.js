@@ -1,7 +1,7 @@
 import test from "tape";
 import I18nBase from "i18n/base";
 
-test("i18n/base", function(t) {
+test("I18nBase#t", function(t) {
   t.test("string translations", function(t) {
     let result = new I18nBase({foo: {bar: "translation"}}).t("foo.bar");
 
@@ -91,7 +91,7 @@ test("i18n/base", function(t) {
   t.end();
 });
 
-test("i18n/base config", function(t) {
+test("I18nBase config", function(t) {
   t.test("scope option", function(t) {
     let result = new I18nBase({foo: {bar: "translation"}}, {scope: "foo"}).t("bar");
 
@@ -123,7 +123,7 @@ test("i18n/base config", function(t) {
   t.end();
 });
 
-test("i18n/base fallbackI18n with subclassing", function(t) {
+test("I18nBase fallbackI18n option with subclassing", function(t) {
   class SimpleI18n extends I18nBase { t() { return super.t(...arguments).translation; } }
 
   t.test("delegates t to subclass", function(t) {
@@ -134,6 +134,15 @@ test("i18n/base fallbackI18n with subclassing", function(t) {
     
     t.end();
   });
+
+  t.end();
+});
+
+test("I18nBase#scoped", function(t) {
+  let i = new I18nBase({a: {b: {c: "foo %{a}"}}});
+  let scopedT = i.scoped("a.b");
+
+  t.equal(scopedT("c", {a: 123}).translation, "foo 123", "returns wrapper function");
 
   t.end();
 });

@@ -1,7 +1,7 @@
 import test from "tape";
-import I18nStrict from "I18n/strict";
+import I18nStrict from "i18n/strict";
 
-test("I18n/strict", function(t) {
+test("I18nStrict#t", function(t) {
   t.test("existing translations", function(t) {
     let i = new I18nStrict({a: {b: "foo"}});
 
