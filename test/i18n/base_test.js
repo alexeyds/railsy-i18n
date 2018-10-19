@@ -122,3 +122,18 @@ test("i18n/base config", function(t) {
 
   t.end();
 });
+
+test("i18n/base fallbackI18n with subclassing", function(t) {
+  class SimpleI18n extends I18nBase { t() { return super.t(...arguments).translation; } }
+
+  t.test("delegates t to subclass", function(t) {
+    let fallbackI18n = new SimpleI18n({foo: "foobar"});
+    let result = new SimpleI18n({}, {fallbackI18n}).t("foo");
+
+    t.equal(result, "foobar");
+    
+    t.end();
+  });
+
+  t.end();
+});
