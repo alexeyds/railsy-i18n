@@ -103,10 +103,10 @@ test("I18nBase config", function(t) {
   });
 
   t.test("fallbackI18n option", function(t) {
-    let fallbackI18n = new I18nBase({foo: "foo"});
-    let result = new I18nBase({}, {fallbackI18n}).t("foo");
+    let fallbackI18n = new I18nBase({foo: "foo%{bar}"});
+    let result = new I18nBase({}, {fallbackI18n}).t("foo", {bar: "bar"});
 
-    t.equal(result.translation, "foo", "uses fallbackI18n to provide missing translations");
+    t.equal(result.translation, "foobar", "uses fallbackI18n to provide missing translations");
 
     t.end();
   });
