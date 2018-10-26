@@ -6,8 +6,10 @@ test("StringInterpolator", function(t) {
     let result = new StringInterpolator().interpolate("foo %{bar}", {bar: "bar"});
 
     t.equal(result.interpolated, "foo bar", "replaces placeholders in string");
-    t.equal(result.unusedPlaceholders, undefined, "returns extraInterpolationArguments: undefined");
-    t.equal(result.remainingPlaceholders, undefined, "returns remainingPlaceholders: undefined");
+    
+    t.equal(result.unusedReplacements, undefined);
+    t.equal(result.remainingPlaceholders, undefined);
+    t.equal(result.undefinedReplacements, undefined);
     
     t.end();
   });
@@ -20,35 +22,10 @@ test("StringInterpolator", function(t) {
     t.end();
   });
 
-  t.test("extra interpolation arguments", function(t) {
-    let result = new StringInterpolator().interpolate("%{bar}", {bar: "bar", foo1: "foo"});
-
-    t.same(result.unusedPlaceholders, ["foo1"], "returns array of unused arguments");
-
-    t.end();
-  });
-
-  t.test("remaining placeholders in string", function(t) {
-    let result = new StringInterpolator().interpolate("%{bar} %{foo}", {bar: "bar"});
-
-    t.same(result.remainingPlaceholders, ["foo"], "returns array of remaining placeholders");
-
-    t.end();
-  });
-
-  t.test("remaining placeholders in string without interpolation args", function(t) {
-    let result = new StringInterpolator().interpolate("%{bar} %{foo}");
-
-    t.same(result.remainingPlaceholders, ["bar", "foo"], "returns array of remaining placeholders");
-
-    t.end();
-  });
-
-  t.test("undefined placeholders", function(t) {
+  t.test("undefined replacements", function(t) {
     let result = new StringInterpolator().interpolate("%{bar}", {bar: undefined});
 
-    t.same(result.undefinedPlaceholders, ["bar"], "returns array of undefined placeholders");
-    t.equal(result.interpolated, "%{bar}", "doesn't replace undefined placeholders in translation");
+    t.equal(result.interpolated, "%{bar}", "doesn't use undefined replacements for interpolation");
 
     t.end();
   });
