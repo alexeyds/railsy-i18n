@@ -7,9 +7,9 @@ test("StringInterpolator", function(t) {
 
     t.equal(result.interpolated, "foo bar", "replaces placeholders in string");
     
-    t.equal(result.unusedReplacements, undefined);
-    t.equal(result.remainingPlaceholders, undefined);
-    t.equal(result.undefinedReplacements, undefined);
+    t.same(result.validation, 
+      { unusedReplacements: undefined, remainingPlaceholders: undefined, undefinedReplacements: undefined }
+    );
     
     t.end();
   });
