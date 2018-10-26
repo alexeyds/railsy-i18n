@@ -5,7 +5,7 @@ test("PlaceholdersValidator", function(t) {
   t.test("extra replacements", function(t) {
     let placeholders = {bar: "%{bar}"};
     let replacements = {bar: "bar", foo1: "foo"};
-    let result = new PlaceholdersValidator(placeholders).validate(replacements);
+    let result = new PlaceholdersValidator(placeholders).filter(replacements);
 
     t.same(result.unusedReplacements, ["foo1"], "returns array of unused replacements");
 
@@ -13,7 +13,7 @@ test("PlaceholdersValidator", function(t) {
   });
 
   t.test("remaining placeholders", function(t) {
-    let result = new PlaceholdersValidator({bar: "%{bar}", foo: "%{foo}"}).validate({bar: "bar"});
+    let result = new PlaceholdersValidator({bar: "%{bar}", foo: "%{foo}"}).filter({bar: "bar"});
 
     t.same(result.remainingPlaceholders, ["foo"], "returns array of remaining placeholders");
 
@@ -21,7 +21,7 @@ test("PlaceholdersValidator", function(t) {
   });
 
   t.test("remaining placeholders when replacements === undefined", function(t) {
-    let result = new PlaceholdersValidator({bar: "%{bar}", foo: "%{foo}"}).validate();
+    let result = new PlaceholdersValidator({bar: "%{bar}", foo: "%{foo}"}).filter();
 
     t.same(result.remainingPlaceholders, ["bar", "foo"], "returns array of remaining placeholders");
 
@@ -29,7 +29,7 @@ test("PlaceholdersValidator", function(t) {
   });
 
   t.test("undefined replacements", function(t) {
-    let result = new PlaceholdersValidator({bar: "%{bar}"}).validate({bar: undefined, foo: "test"});
+    let result = new PlaceholdersValidator({bar: "%{bar}"}).filter({bar: undefined, foo: "test"});
 
     t.same(result.undefinedReplacements, ["bar"], "returns array of undefined replacements");
     t.same(result.filteredReplacements, {foo: "test"}, "filters out undefined replacements");
@@ -39,7 +39,7 @@ test("PlaceholdersValidator", function(t) {
   });
 
   t.test("with empty placeholders object", function(t) {
-    let result = new PlaceholdersValidator({}).validate();
+    let result = new PlaceholdersValidator({}).filter();
 
     t.equal(result.unusedReplacements, undefined);
     t.equal(result.remainingPlaceholders, undefined);
