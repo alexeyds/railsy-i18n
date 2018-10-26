@@ -23,7 +23,7 @@ test("StringInterpolator", function(t) {
   t.test("extra interpolation arguments", function(t) {
     let result = new StringInterpolator().interpolate("%{bar}", {bar: "bar", foo1: "foo"});
 
-    t.same(result.unusedPlaceholders, ["%{foo1}"], "returns array of unused arguments");
+    t.same(result.unusedPlaceholders, ["foo1"], "returns array of unused arguments");
 
     t.end();
   });
