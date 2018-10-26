@@ -18,13 +18,13 @@ test("I18nStrict#t", function(t) {
     t.end();
   });
 
-  t.test("missing placeholders", function(t) {
+  t.test("unused interpolation arguments", function(t) {
     let i = new I18nStrict({a: "foo"});
 
     let test = () => i.t("a", {bar: 1, c: 2});
   
-    t.throws(test, /Placeholders missing/, "throws error");
-    t.throws(test, /to include %{bar}, %{c}/, "includes missing placeholders into error");
+    t.throws(test, /Unused interpolation/, "throws error");
+    t.throws(test, /bar, c/, "includes unused arguments into error");
     
     t.end();
   });
@@ -40,13 +40,13 @@ test("I18nStrict#t", function(t) {
     t.end();
   });
 
-  t.test("undefined placeholders", function(t) {
+  t.test("undefined interpolation arguments", function(t) {
     let i = new I18nStrict({a: "foo %{bar}"});
 
     let test = () => i.t("a", {bar: undefined});
 
-    t.throws(test, /Undefined placeholder value/, "throws error");
-    t.throws(test, /bar/, "includes undefined placeholders into error");
+    t.throws(test, /Undefined interpolation/, "throws error");
+    t.throws(test, /bar/, "includes undefined arguments into error");
 
     t.end();
   });
