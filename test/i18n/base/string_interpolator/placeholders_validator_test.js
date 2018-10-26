@@ -1,7 +1,7 @@
 import test from "tape";
 import PlaceholdersValidator from "i18n/base/string_interpolator/placeholders_validator";
 
-test("PlaceholdersValidator", function(t) {
+test("PlaceholdersValidator#filter", function(t) {
   t.test("extra replacements", function(t) {
     let placeholders = {bar: "%{bar}"};
     let replacements = {bar: "bar", foo1: "foo"};
@@ -20,8 +20,8 @@ test("PlaceholdersValidator", function(t) {
     t.end();
   });
 
-  t.test("remaining placeholders when replacements === undefined", function(t) {
-    let result = new PlaceholdersValidator({bar: "%{bar}", foo: "%{foo}"}).filter();
+  t.test("remaining placeholders when replacements === {}", function(t) {
+    let result = new PlaceholdersValidator({bar: "%{bar}", foo: "%{foo}"}).filter({});
 
     t.same(result.validation.remainingPlaceholders, ["bar", "foo"], "returns array of remaining placeholders");
 
@@ -39,14 +39,24 @@ test("PlaceholdersValidator", function(t) {
   });
 
   t.test("with empty placeholders object", function(t) {
-    let result = new PlaceholdersValidator({}).filter();
+    let result = new PlaceholdersValidator({}).filter({});
 
-    t.equal(result.validation.unusedReplacements, undefined);
-    t.equal(result.validation.remainingPlaceholders, undefined);
-    t.equal(result.validation.undefinedReplacements, undefined);
+    t.same(result.validation, emptyResult());
 
     t.end();
   });
 
   t.end();
 });
+
+test("PlaceholdersValidator.emptyValidationResult", function(t) {
+  let result = PlaceholdersValidator.emptyValidationResult();
+
+  t.same(result, emptyResult());
+
+  t.end();
+});
+
+function emptyResult() {
+  return { unusedReplacements: undefined, remainingPlaceholders: undefined, undefinedReplacements: undefined };
+}

@@ -3,7 +3,7 @@ import TranslationFinder from "i18n/base/translation_finder";
 
 test("TranslationFinder#find", function(t) {
   t.test("simple translations", function(t) {
-    let finder = new TranslationFinder({foo: {bar: "translation"}});
+    let finder = new TranslationFinder({foo: {bar: "translation"}}, {});
 
     let result = finder.find("foo.bar");
 
@@ -17,7 +17,7 @@ test("TranslationFinder#find", function(t) {
   });
 
   t.test("missing translations", function(t) {
-    let result = new TranslationFinder({foo: {}}).find("foo.bar");
+    let result = new TranslationFinder({foo: {}}, {}).find("foo.bar");
 
     t.equal(result.translation, undefined, "returns translation: undefined");
 

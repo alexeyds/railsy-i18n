@@ -1,23 +1,13 @@
 import test from "tape";
 import StringInterpolator from "i18n/base/string_interpolator";
 
-test("StringInterpolator", function(t) {
+test("StringInterpolator#interpolate", function(t) {
   t.test("simple interpolation", function(t) {
     let result = new StringInterpolator().interpolate("foo %{bar}", {bar: "bar"});
 
     t.equal(result.interpolated, "foo bar", "replaces placeholders in string");
     
-    t.same(result.validation, 
-      { unusedReplacements: undefined, remainingPlaceholders: undefined, undefinedReplacements: undefined }
-    );
-    
-    t.end();
-  });
-
-  t.test("non-string interpolation", function(t) {
-    let result = new StringInterpolator().interpolate(1, {bar: "bar"});
-
-    t.equal(result.interpolated, 1, "doesn't try to replace placeholders in non-string object");
+    t.notEqual(result.validation, undefined, "validates placeholders");
     
     t.end();
   });
@@ -29,6 +19,14 @@ test("StringInterpolator", function(t) {
 
     t.end();
   });
+
+  t.end();
+});
+
+test("StringInterpolator#emptyValidationResult", function(t) {
+  let result = new StringInterpolator().emptyValidationResult();
+
+  t.notEqual(result, undefined, "delegates to placeholdersValidator");
 
   t.end();
 });
