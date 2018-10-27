@@ -12,14 +12,6 @@ test("StringInterpolator#interpolate", function(t) {
     t.end();
   });
 
-  // t.test("foo", function(t) {
-  //   let result = new StringInterpolator().interpolate("%{bar}");
-
-  //   console.log(result);
-    
-  //   t.end();
-  // });
-
   t.test("undefined replacements", function(t) {
     let result = new StringInterpolator().interpolate("%{bar}", {bar: undefined});
 
