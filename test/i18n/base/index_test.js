@@ -12,9 +12,7 @@ test("I18nBase#t", function(t) {
     t.equal(result.paths.scoped, "foo.bar");
     t.equal(result.paths.stoppedAt, "foo.bar");
 
-    t.same(result.interpolation, 
-      { unusedReplacements: undefined, remainingPlaceholders: undefined, undefinedReplacements: undefined }
-    );
+    t.same(result.interpolation, {});
     
     t.end();
   });
@@ -24,6 +22,7 @@ test("I18nBase#t", function(t) {
 
     t.equal(result.translation, undefined, "returns translation: undefined");
     t.equal(result.isTranslated, false, "returns isTranslated: false");
+    t.same(result.interpolation, {});
     
     t.end();
   });

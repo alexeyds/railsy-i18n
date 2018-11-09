@@ -22,11 +22,3 @@ test("StringInterpolator#interpolate", function(t) {
 
   t.end();
 });
-
-test("StringInterpolator#emptyValidationResult", function(t) {
-  let result = new StringInterpolator().emptyValidationResult();
-
-  t.notEqual(result, undefined, "delegates to placeholdersValidator");
-
-  t.end();
-});

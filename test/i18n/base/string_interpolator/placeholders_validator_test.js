@@ -41,22 +41,10 @@ test("PlaceholdersValidator#filter", function(t) {
   t.test("with empty placeholders object", function(t) {
     let result = new PlaceholdersValidator({}).filter({});
 
-    t.same(result.validation, emptyResult());
+    t.same(result.validation, {});
 
     t.end();
   });
 
   t.end();
 });
-
-test("PlaceholdersValidator.emptyValidationResult", function(t) {
-  let result = PlaceholdersValidator.emptyValidationResult();
-
-  t.same(result, emptyResult());
-
-  t.end();
-});
-
-function emptyResult() {
-  return { unusedReplacements: undefined, remainingPlaceholders: undefined, undefinedReplacements: undefined };
-}
