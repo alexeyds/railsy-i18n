@@ -3,7 +3,7 @@ import TranslationFinder from "i18n/base/translation_finder";
 
 test("TranslationFinder#find", function(t) {
   t.test("simple translations", function(t) {
-    let finder = new TranslationFinder({foo: {bar: "translation"}}, {});
+    let finder = new TranslationFinder({foo: {bar: "translation"}});
 
     let result = finder.find("foo.bar");
 
@@ -17,12 +17,21 @@ test("TranslationFinder#find", function(t) {
   });
 
   t.test("missing translations", function(t) {
-    let result = new TranslationFinder({foo: {}}, {}).find("foo.bar");
+    let result = new TranslationFinder({foo: {}}).find("foo.bar");
 
     t.equal(result.translation, undefined, "returns translation: undefined");
 
     t.equal(result.paths.stoppedAt, "foo", "returns correct stoppedAt location");
     
+    t.end();
+  });
+
+  t.test("optionalStep option", function(t) {
+    let result = new TranslationFinder({foo: {extra_step: 123}}).find("foo", {optionalStep: "extra_step"});
+
+    t.equal(result.translation, 123, "passes options to findTranslation func");
+    t.equal(result.isOptionalStepTaken, true);
+
     t.end();
   });
 
