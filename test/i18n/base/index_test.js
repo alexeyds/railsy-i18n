@@ -47,6 +47,78 @@ test("I18nBase#t", function(t) {
   t.end();
 });
 
+test("I18n#t pluralization rules", function(t) {
+  t.test("default rule: 0", function(t) {
+    let result = new I18nBase({a: {zero: "Zero"}}).t("a", {count: 0});
+
+    t.equal(result.translation, "Zero");
+    t.equal(result.interpolation.unusedReplacements, undefined, "doesnt include count into unusedReplacements");
+    
+    t.end();
+  });
+
+  t.test("no 'count' placeholder in string", function(t) {
+    let result = new I18nBase({a: ""}).t("a", {count: 0});
+
+    t.same(result.interpolation.unusedReplacements, ["count"]);
+    
+    t.end();
+  });
+
+  t.test("default rule: 0 as other", function(t) {
+    let result = new I18nBase({a: {other: "%{count} other"}}).t("a", {count: 0});
+
+    t.equal(result.translation, "0 other");
+    
+    t.end();
+  });
+
+  t.test("default rule: 1", function(t) {
+    let result = new I18nBase({a: {one: "one"}}).t("a", {count: 1});
+
+    t.equal(result.translation, "one");
+    
+    t.end();
+  });
+
+  t.test("default rule: other", function(t) {
+    let result = new I18nBase({a: {other: "other"}}).t("a", {count: 2});
+
+    t.equal(result.translation, "other");
+    
+    t.end();
+  });
+
+  t.test("custom rule", function(t) {
+    let rule = () => "custom_counter";
+    let result = new I18nBase({a: {custom_counter: "123"}}, {pluralizationRule: rule}).t("a", {count: 3});
+
+    t.equal(result.translation, "123");
+    
+    t.end();
+  });
+
+  t.test("custom rule: 'zero' as other", function(t) {
+    let rule = () => "zero";
+    let result = new I18nBase({a: {other: "other"}}, {pluralizationRule: rule}).t("a", {count: 0});
+
+    t.equal(result.translation, "other", "fallbacks to 'other'");
+    
+    t.end();
+  });
+
+  t.test("custom rule: something else as other", function(t) {
+    let rule = () => "foo";
+    let result = new I18nBase({a: {other: "other"}}, {pluralizationRule: rule}).t("a", {count: 0});
+
+    t.equal(result.isTranslated, false, "doesn't fallback to 'other'");
+
+    t.end();
+  });
+  
+  t.end();
+});
+
 test("I18nBase config", function(t) {
   t.test("scope option", function(t) {
     let result = new I18nBase({foo: {bar: "translation"}}, {scope: "foo"}).t("bar");
