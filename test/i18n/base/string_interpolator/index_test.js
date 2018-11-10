@@ -20,5 +20,13 @@ test("StringInterpolator#interpolate", function(t) {
     t.end();
   });
 
+  t.test("optional replacements", function(t) {
+    let result = new StringInterpolator().interpolate("", {count: "one"}, {optionalReplacements: ["count"]});
+
+    t.equal(result.validation.unusedReplacements, undefined, "doesn't count optionalReplacements as unused");
+    
+    t.end();
+  });
+
   t.end();
 });

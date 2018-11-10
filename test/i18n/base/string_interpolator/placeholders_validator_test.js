@@ -46,5 +46,13 @@ test("PlaceholdersValidator#filter", function(t) {
     t.end();
   });
 
+  t.test("optionalReplacements", function(t) {
+    let result = new PlaceholdersValidator({}).filter({bar: 1}, {optionalReplacements: ["bar"]});
+
+    t.equal(result.validation.unusedReplacements, undefined, "doesnt count optionalReplacements as unused");
+
+    t.end();
+  });
+
   t.end();
 });
