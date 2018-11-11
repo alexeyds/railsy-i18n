@@ -23,7 +23,7 @@ test("I18nStrict#t", function(t) {
 
     let test = () => i.t("a", {bar: 1, c: 2});
   
-    t.throws(test, /Unused interpolation/, "throws error");
+    t.throws(test, /Unused/, "throws error");
     t.throws(test, /bar, c/, "includes unused arguments into error");
     
     t.end();
@@ -34,7 +34,7 @@ test("I18nStrict#t", function(t) {
 
     let test = () => i.t("a");
 
-    t.throws(test, /Interpolation arguments missing/, "throws error");
+    t.throws(test, /Missing/, "throws error");
     t.throws(test, /bar, baz/, "includes missing arguments into error");
 
     t.end();
@@ -45,7 +45,7 @@ test("I18nStrict#t", function(t) {
 
     let test = () => i.t("a", {bar: undefined});
 
-    t.throws(test, /Undefined interpolation/, "throws error");
+    t.throws(test, /Undefined/, "throws error");
     t.throws(test, /bar/, "includes undefined arguments into error");
 
     t.end();
