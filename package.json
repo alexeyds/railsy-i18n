@@ -1,12 +1,28 @@
 {
-  "name": "railsy_i18n",
+  "name": "railsy-i18n",
   "version": "0.1.0",
   "description": "Node.js adaptation of Ruby I18n library",
-  "main": "index.js",
+  "main": "i18n/index.js",
   "scripts": {
     "test": "./test.sh test",
     "eslint": "./node_modules/.bin/eslint {lib,test}/**/*{js,jsx}"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexeyds/railsy-i18n.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alexeyds/railsy-i18n/issues"
+  },
+  "homepage": "https://github.com/alexeyds/railsy-i18n",
+  "keywords": [
+    "i18n",
+    "localization",
+    "internationalization",
+    "translation",
+    "pluralization",
+    "interpolation"
+  ],
   "author": "Alexey D",
   "license": "MIT",
   "devDependencies": {

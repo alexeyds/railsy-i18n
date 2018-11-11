@@ -89,15 +89,6 @@ test("I18n#t pluralization rules", function(t) {
     t.end();
   });
 
-  t.test("custom rule", function(t) {
-    let rule = () => "custom_counter";
-    let result = new I18nBase({a: {custom_counter: "123"}}, {pluralizationRule: rule}).t("a", {count: 3});
-
-    t.equal(result.translation, "123");
-    
-    t.end();
-  });
-
   t.test("custom rule: 'zero' as other", function(t) {
     let rule = () => "zero";
     let result = new I18nBase({a: {other: "other"}}, {pluralizationRule: rule}).t("a", {count: 0});
@@ -134,6 +125,15 @@ test("I18nBase config", function(t) {
 
     t.equal(result.translation, "foobar", "uses fallbackI18n to provide missing translations");
 
+    t.end();
+  });
+
+  t.test("pluralizationRule option", function(t) {
+    let rule = () => "custom_counter";
+    let result = new I18nBase({a: {custom_counter: "123"}}, {pluralizationRule: rule}).t("a", {count: 3});
+
+    t.equal(result.translation, "123");
+    
     t.end();
   });
 
