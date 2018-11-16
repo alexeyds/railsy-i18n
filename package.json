@@ -1,8 +1,8 @@
 {
   "name": "railsy-i18n",
-  "version": "0.1.0",
+  "version": "0.1.0-rc.1",
   "description": "Node.js adaptation of Ruby I18n library",
-  "main": "i18n/index.js",
+  "main": "lib/i18n/index.js",
   "scripts": {
     "test": "./test.sh test",
     "eslint": "./node_modules/.bin/eslint {lib,test}/**/*{js,jsx}"
