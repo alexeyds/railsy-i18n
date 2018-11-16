@@ -51,6 +51,5 @@ test("I18nStrict#t", function(t) {
     t.end();
   });
 
-
   t.end();
 });

@@ -3,7 +3,7 @@ Node.js adaptation of Ruby I18n library
 
 Main goal of this project is to provide an easy way of using Ruby I18n conventions in node applications.
 
-It is intended to be a simple, flexible library for internationalization and localization which can easen the transfer of translations from Rails backend to any node environment or be used as a standalone solution.
+It is intended to be a simple, flexible library for internationalization and localization which can be used as a standalone solution or/and easen the transfer of translation files from Rails backend to any node environment.
 
 ## Installation
 ```
@@ -31,6 +31,7 @@ let enI18n = new I18n({
 
 // Basic usage
 enI18n.t("header.login"); //=> "Log me in"
+enI18n.t("header.welcome", {name: "John"}); //=> "Welcome, John"
 
 // Pluralization
 enI18n.t("users_count", { count: 4} ); //=> "4 users"
@@ -62,31 +63,37 @@ ruI18n.t("header.welcome", {name: "Джон"}); //=> "Welcome, Джон"
 new I18n(translations[, options])
 ```
 
-- `translations`: an object, containing all translations for this instance.
-- `options.scope`: a string, default scope for all translations.
-- `options.fallbackI18n`: an I18n object to which all missing translations will be delegated.
-- `options.pluralizationRule`: a function. See [Pluralization section](#pluralization) for more details
+- `translations`: an object, containing all translations for this instance. Required.
+- `options.scope`: a string, default scope for all translations. Optiona.
+- `options.fallbackI18n`: an `I18n` instance to which all missing translations will be delegated. Optional.
+- `options.pluralizationRule`: a function. See [Pluralization section](#pluralization) for more details. Optional.
 
 ### I18n#t method
-If translation is undefined, this method will return a humanized string based on the translation path, as shown in Example Usage section
-
 ```js
-enI18n.t(path[, placeholderReplacements])
+enI18n.t(path[, interpolationVariables])
 ```
 
 - `path`: a string, path to translation in 'path.to.translation' format
-- `placeholderReplacements`: an object of replacements for placeholders in the translation string, for example:
+- `interpolationVariables`: an object of placeholder replacements in the translation string.
+
+If translation is not a string, this method will return a humanized string based on the translation path. For example:
 ```js
 const I18n = require("railsy-i18n");
 
 let i18n = new I18n({foo: "foo %{bar}, %{baz}"});
 
-// Extra replacements are ignored
+// Extra interpolation variables are ignored
 i18n.t("foo", {bar: "bazzz", baz: "barrr", ignored: "123"}); //=> "foo bazzz, barrr"
+
+// Missing translations
+i18n.t("foo.bar.baz"); //=> "Baz"
 ```
 
 ### I18n#scoped method
 Returns a wrapper function which delegates to I18n#t with appended scope.
+- `scope`: a string
+
+Example:
 ```js
 const I18n = require("railsy-i18n");
 
@@ -97,10 +104,8 @@ let t = i18n.scoped("foo");
 t("bar"); //=> "scoped bar"
 ```
 
-- `scope`: a string
-
 ### Pluralization
-`count` key in `I18n#t` `placeholderReplacements` object has a special meaning. If translation at `path` is an object and `count` is present, it will try to search this object for a corresponding key based on the provided(or default) `pluralizationRule` function(see [Constructor options](#constructor-options)). Default rule looks like this: 
+`count` key in [I18n#t](#i18nt-method) `interpolationVariables` object has a special meaning. If translation at `path` is an object and `count` is present, railsy-i18n will try to search this object for a corresponding key based on the provided(or default) `pluralizationRule` function(see [Constructor options](#constructor-options)). Default rule looks like this: 
 
 ```js
 function defaultPluralizationRule(count) {
@@ -114,7 +119,7 @@ function defaultPluralizationRule(count) {
 }
 ```
 
-It simply returns a key which is then used to determine correct translation string. `%{count}` placeholder is also replaced inside this string if necessary. It's completely up to you which keys to use, but common conventions are "zero", "one", "few" and "other". The only assumption railsy-i18n makes about these keys is that 'zero' key is optional and can replaced with 'other'. Some examples:
+As you can see, it simply returns a key which is then used to determine correct translation string. `%{count}` placeholder is also replaced inside this string if necessary. It's completely up to you which keys to use, but common conventions are "zero", "one", "few" and "other". **The only assumption railsy-i18n makes about these keys is that 'zero' key is optional and can replaced with 'other'.** Some examples:
 
 Default rule: 
 ```js
@@ -128,10 +133,13 @@ let defaultI18n = new I18n({
   items: "%{count} items"
 });
 
+// Note how `users.other` is used in this case and not `users.zero`(which is undefined)
 defaultI18n.t("users", {count: 0}); //=> "0 users"
+
 defaultI18n.t("users", {count: 1}); //=> "One user"
 defaultI18n.t("users", {count: 312}); //=> "312 users"
 
+// 
 defaultI18n.t("items", {count: 1}); //=> "1 items"
 ```
 
@@ -169,11 +177,11 @@ customI18n.t("items", {count: 0}); //=> "My Zero2 items"
 ```
 
 ## I18n.Strict
-This package also provides a Stict version of I18n class which throws an error if one of the following occurs:
+This package also provides a Strict version of I18n class which throws an error if one of the following occurs:
 1. Translation cannot be found or is not a string.
 2. Some of the placeholders in translation string are not replaced.
-3. Some of the placeholders in translation string are not present, but still passed in `placeholderReplacements` object.
-4. Some of the `placeholderReplacements` are undefined.
+3. Some of the placeholders in translation string are not present, but were passed as `interpolationVariables`.
+4. Some of the `interpolationVariables` are undefined.
 
 The only intended use of `I18n.Strict` is testing, do not use it in production environments!
 
@@ -196,13 +204,13 @@ let strict = new I18n.Strict({
 // Throws: Translation missing: title
 strict.t("title");
 
-// Throws: Missing placeholder replacements: expected to receive {text} for translation at 'page.title'
+// Throws: Missing interpolation variables: expected to receive {text} for translation at 'page.title'
 strict.t("page.title");
 
-// Throws: Undefined placeholder replacements for 'page.title': text
+// Throws: Undefined interpolation variables for 'page.title': text
 strict.t("page.title", {text: undefined});
 
-// Throws: Unused placeholder replacements for 'page.title': id
+// Throws: Unused interpolation variables for 'page.title': id
 strict.t("page.title", { text: "Home", id: "123"} );
 
 // Returns correct string if there are no errors
@@ -214,7 +222,7 @@ strict.t("users", { count: 0 } );
 // Does not throw, count key is optional in this case because of the pluralization
 strict.t("users", { count: 1 } ); //=> One user
 
-// Throws, count key is not special in this case
+// Throws, count key is required in this case
 strict.t("items");
 ```
 
