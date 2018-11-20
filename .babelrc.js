@@ -1,13 +1,7 @@
 module.exports = {
   "presets": [
     [ 
-      "@babel/preset-env",
-      {
-        "targets": {
-          "browsers": ['ie >= 11']
-        },
-        "loose": true
-      }
+      "@babel/preset-env"
     ]
   ],
 
