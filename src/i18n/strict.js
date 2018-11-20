@@ -1,9 +1,9 @@
-const I18nBase = require("./base");
+import I18nBase from "./base/index";
 
 class MissingTranslationError extends Error {}
 class InterpolationError extends Error {}
 
-module.exports = class I18nStrict extends I18nBase {
+export default class I18nStrict extends I18nBase {
   t() {
     let { paths, isTranslated, translation, interpolation } = super.t(...arguments);
     if (isTranslated) {
@@ -35,7 +35,7 @@ module.exports = class I18nStrict extends I18nBase {
       );
     }
   }
-};
+}
 
 function toStr(arr) {
   return arr.join(", ");

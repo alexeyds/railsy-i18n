@@ -1,4 +1,4 @@
-exports.removeKeys = function removeKeys(object, keys) {
+export function removeKeys(object, keys) {
   let result = {};
 
   for (let key in object) {
@@ -8,9 +8,9 @@ exports.removeKeys = function removeKeys(object, keys) {
   }
 
   return result;
-};
+}
 
-exports.removeUndef = function removeUndef(object) {
+export function removeUndef(object) {
   let result = Object.assign({}, object);
   
   for (let key in object) {
@@ -20,4 +20,4 @@ exports.removeUndef = function removeUndef(object) {
   }
 
   return result;
-};
+}

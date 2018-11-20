@@ -1,7 +1,7 @@
-let { removeKeys, removeUndef } = require("../../../utils/object");
-let NullArray = require("../../../utils/null_array");
+import { removeKeys, removeUndef } from "utils/object";
+import NullArray from "utils/null_array";
 
-module.exports = class PlaceholdersValidator {
+export default class PlaceholdersValidator {
   constructor(placeholders) {
     this._placeholders = placeholders;
   }
@@ -55,4 +55,4 @@ module.exports = class PlaceholdersValidator {
   _filterUndefined(replacements, keys) {
     return keys ? removeKeys(replacements, keys) : replacements;
   }
-};
+}

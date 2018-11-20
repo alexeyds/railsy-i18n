@@ -1,6 +1,6 @@
-const I18nBase = require("./base");
+import I18nBase from "./base/index";
 
-module.exports = class I18nBasic extends I18nBase {
+export default class I18nBasic extends I18nBase {
   t() {
     let { paths, isTranslated, translation } = super.t(...arguments);
 
@@ -10,7 +10,7 @@ module.exports = class I18nBasic extends I18nBase {
       return humanizePath(paths.scoped);
     }
   }
-};
+}
 
 function humanizePath(path) {
   let splitPath = path.split(".");

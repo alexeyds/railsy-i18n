@@ -1,6 +1,6 @@
-const PlaceholdersValidator = require("./placeholders_validator");
+import PlaceholdersValidator from "./placeholders_validator";
 
-module.exports = class StringInterpolator {
+export default class StringInterpolator {
   interpolate(string, replacements, options) {
     let placeholders = this._findPlaceholdersInString(string);
     
@@ -35,4 +35,4 @@ module.exports = class StringInterpolator {
 
     return string;
   }
-};
+}

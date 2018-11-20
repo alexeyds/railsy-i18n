@@ -10,10 +10,6 @@
     ]
   ],
 
-  "ignore": [
-    "src"
-  ],
-
   "plugins": [
     [
       "module-resolver",

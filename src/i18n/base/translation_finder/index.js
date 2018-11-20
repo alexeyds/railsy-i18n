@@ -1,6 +1,6 @@
-const findTranslation = require("./find_translation");
+import findTranslation from "./find_translation";
 
-module.exports = class TranslationFinder {
+export default class TranslationFinder {
   constructor(translations, options) {
     this._translations = translations;
     this._scope = options && options.scope;

@@ -1,4 +1,4 @@
-module.exports = function findTranslation(translations, steps, options) {
+export default function findTranslation(translations, steps, options) {
   let optionalStep = options && options.optionalStep;
   let iterator = new TranslationIterator(translations);
 
@@ -14,7 +14,7 @@ module.exports = function findTranslation(translations, steps, options) {
     takeOptionalStep(iterator, optionalStep);
 
   return { translation: iterator.translation, stoppedAt: iterator.stoppedAt, isOptionalStepTaken };
-};
+}
 
 function shouldTakeOptionalStep(iterator, step) {
   return step !== undefined && typeof iterator.translation === 'object';

@@ -1,5 +1,6 @@
-const I18nStrict = require("./strict");
-const I18nBasic = require("./basic");
+
+import I18nStrict from "./strict";
+import I18nBasic from "./basic";
 
 I18nBasic.Strict = I18nStrict;
-module.exports = I18nBasic;
+export default I18nBasic;

@@ -1,7 +1,7 @@
-const TranslationFinder = require("./translation_finder");
-const StringInterpolator = require("./string_interpolator");
+import TranslationFinder from "./translation_finder/index";
+import StringInterpolator from "./string_interpolator/index";
 
-module.exports = class I18nBase {
+export default class I18nBase {
   constructor(translations, options) {
     let translatorOptions = {};
 
@@ -49,7 +49,7 @@ module.exports = class I18nBase {
       };
     }
   }
-};
+}
 
 function getCountKey(replacements, pluralizationRule) {
   if (!replacements || replacements.count === undefined) {

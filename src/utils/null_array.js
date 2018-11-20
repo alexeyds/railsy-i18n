@@ -1,4 +1,4 @@
-module.exports = class NullArray {
+export default class NullArray {
   constructor() {
     if (arguments.length) {
       this.value = [...arguments];
@@ -9,4 +9,4 @@ module.exports = class NullArray {
     this.value = this.value || [];
     this.value.push(item);
   }
-};
+}
