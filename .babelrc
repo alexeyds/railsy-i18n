@@ -11,7 +11,7 @@
   ],
 
   "ignore": [
-    "lib"
+    "src"
   ],
 
   "plugins": [
@@ -19,7 +19,7 @@
       "module-resolver",
       {
         "root": [
-          "./lib"
+          "./src"
         ],
         "alias": {
           "test": "./test"
