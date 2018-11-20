@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "./test.sh test",
-    "eslint": "./node_modules/.bin/eslint {lib,test}/**/*{js,jsx}",
+    "lint": "eslint {src,test}/**/*{js,jsx}",
     "build": "rollup -c"
   },
   "repository": {
