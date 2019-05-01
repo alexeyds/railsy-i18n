@@ -1,5 +1,5 @@
 import test from "tape";
-import findTranslation from "i18n/base/translation_finder/find_translation";
+import findTranslation from "i18n/core/translation_finder/find_translation";
 
 test("findTranslation", function(t) {
   t.test("existing translation", function(t) {

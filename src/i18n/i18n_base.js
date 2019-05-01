@@ -1,4 +1,4 @@
-import I18nCore from "./base/index";
+import I18nCore from "./core/index";
 
 export default class I18nBase {
   constructor() {

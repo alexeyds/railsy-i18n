@@ -1,7 +1,7 @@
 import TranslationFinder from "./translation_finder/index";
 import StringInterpolator from "./string_interpolator/index";
 
-export default class I18nBase {
+export default class I18nCore {
   constructor(translations, options) {
     let translatorOptions = {};
 

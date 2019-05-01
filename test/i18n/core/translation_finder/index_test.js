@@ -1,5 +1,5 @@
 import test from "tape";
-import TranslationFinder from "i18n/base/translation_finder";
+import TranslationFinder from "i18n/core/translation_finder";
 
 test("TranslationFinder#find", function(t) {
   t.test("simple translations", function(t) {

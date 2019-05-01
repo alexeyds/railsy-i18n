@@ -1,9 +1,9 @@
 import test from "tape";
-import I18nBase from "i18n/base";
+import I18nCore from "i18n/core";
 
-test("I18nBase#t", function(t) {
+test("I18nCore#t", function(t) {
   t.test("string translations", function(t) {
-    let result = new I18nBase({foo: {bar: "translation"}}).t("foo.bar");
+    let result = new I18nCore({foo: {bar: "translation"}}).t("foo.bar");
 
     t.equal(result.translation, "translation");
     t.equal(result.isTranslated, true);
@@ -18,7 +18,7 @@ test("I18nBase#t", function(t) {
   });
 
   t.test("missing translations", function(t) {
-    let result = new I18nBase({foo: {}}).t("foo.bar");
+    let result = new I18nCore({foo: {}}).t("foo.bar");
 
     t.equal(result.translation, undefined, "returns translation: undefined");
     t.equal(result.isTranslated, false, "returns isTranslated: false");
@@ -28,7 +28,7 @@ test("I18nBase#t", function(t) {
   });
 
   t.test("string interpolation", function(t) {
-    let result = new I18nBase({a: "foo %{bar}"}).t("a", {bar: "bar"});
+    let result = new I18nCore({a: "foo %{bar}"}).t("a", {bar: "bar"});
 
     t.equal(result.translation, "foo bar", "replaces placeholders in string");
     
@@ -36,7 +36,7 @@ test("I18nBase#t", function(t) {
   });
 
   t.test("without placeholder replacements", function(t) {
-    let result = new I18nBase({a: "foo %{bar}"}).t("a");
+    let result = new I18nCore({a: "foo %{bar}"}).t("a");
 
     t.equal(result.translation, "foo %{bar}");
     t.same(result.interpolation.remainingPlaceholders, ["bar"]);
@@ -49,7 +49,7 @@ test("I18nBase#t", function(t) {
 
 test("I18n#t pluralization rules", function(t) {
   t.test("default rule: 0", function(t) {
-    let result = new I18nBase({a: {zero: "Zero"}}).t("a", {count: 0});
+    let result = new I18nCore({a: {zero: "Zero"}}).t("a", {count: 0});
 
     t.equal(result.translation, "Zero");
     t.equal(result.interpolation.unusedReplacements, undefined, "doesnt include count into unusedReplacements");
@@ -58,7 +58,7 @@ test("I18n#t pluralization rules", function(t) {
   });
 
   t.test("no 'count' placeholder in string", function(t) {
-    let result = new I18nBase({a: ""}).t("a", {count: 0});
+    let result = new I18nCore({a: ""}).t("a", {count: 0});
 
     t.same(result.interpolation.unusedReplacements, ["count"]);
     
@@ -66,7 +66,7 @@ test("I18n#t pluralization rules", function(t) {
   });
 
   t.test("default rule: 0 as other", function(t) {
-    let result = new I18nBase({a: {other: "%{count} other"}}).t("a", {count: 0});
+    let result = new I18nCore({a: {other: "%{count} other"}}).t("a", {count: 0});
 
     t.equal(result.translation, "0 other");
     
@@ -74,7 +74,7 @@ test("I18n#t pluralization rules", function(t) {
   });
 
   t.test("default rule: 1", function(t) {
-    let result = new I18nBase({a: {one: "one"}}).t("a", {count: 1});
+    let result = new I18nCore({a: {one: "one"}}).t("a", {count: 1});
 
     t.equal(result.translation, "one");
     
@@ -82,7 +82,7 @@ test("I18n#t pluralization rules", function(t) {
   });
 
   t.test("default rule: other", function(t) {
-    let result = new I18nBase({a: {other: "other"}}).t("a", {count: 2});
+    let result = new I18nCore({a: {other: "other"}}).t("a", {count: 2});
 
     t.equal(result.translation, "other");
     
@@ -91,7 +91,7 @@ test("I18n#t pluralization rules", function(t) {
 
   t.test("custom rule: 'zero' as other", function(t) {
     let rule = () => "zero";
-    let result = new I18nBase({a: {other: "other"}}, {pluralizationRule: rule}).t("a", {count: 0});
+    let result = new I18nCore({a: {other: "other"}}, {pluralizationRule: rule}).t("a", {count: 0});
 
     t.equal(result.translation, "other", "fallbacks to 'other'");
     
@@ -100,7 +100,7 @@ test("I18n#t pluralization rules", function(t) {
 
   t.test("custom rule: something else as other", function(t) {
     let rule = () => "foo";
-    let result = new I18nBase({a: {other: "other"}}, {pluralizationRule: rule}).t("a", {count: 0});
+    let result = new I18nCore({a: {other: "other"}}, {pluralizationRule: rule}).t("a", {count: 0});
 
     t.equal(result.isTranslated, false, "doesn't fallback to 'other'");
 
@@ -110,9 +110,9 @@ test("I18n#t pluralization rules", function(t) {
   t.end();
 });
 
-test("I18nBase config", function(t) {
+test("I18nCore config", function(t) {
   t.test("scope option", function(t) {
-    let result = new I18nBase({foo: {bar: "translation"}}, {scope: "foo"}).t("bar");
+    let result = new I18nCore({foo: {bar: "translation"}}, {scope: "foo"}).t("bar");
 
     t.equal(result.translation, "translation", "searches for translation in provided scope");
 
@@ -120,8 +120,8 @@ test("I18nBase config", function(t) {
   });
 
   t.test("fallbackI18n option", function(t) {
-    let fallbackI18n = new I18nBase({foo: "foo%{bar}"});
-    let result = new I18nBase({}, {fallbackI18n}).t("foo", {bar: "bar"});
+    let fallbackI18n = new I18nCore({foo: "foo%{bar}"});
+    let result = new I18nCore({}, {fallbackI18n}).t("foo", {bar: "bar"});
 
     t.equal(result.translation, "foobar", "uses fallbackI18n to provide missing translations");
 
@@ -130,7 +130,7 @@ test("I18nBase config", function(t) {
 
   t.test("pluralizationRule option", function(t) {
     let rule = () => "custom_counter";
-    let result = new I18nBase({a: {custom_counter: "123"}}, {pluralizationRule: rule}).t("a", {count: 3});
+    let result = new I18nCore({a: {custom_counter: "123"}}, {pluralizationRule: rule}).t("a", {count: 3});
 
     t.equal(result.translation, "123");
     
@@ -140,8 +140,8 @@ test("I18nBase config", function(t) {
   t.end();
 });
 
-test("I18nBase fallbackI18n option with subclassing", function(t) {
-  class SimpleI18n extends I18nBase { t() { return super.t(...arguments).translation; } }
+test("I18nCore fallbackI18n option with subclassing", function(t) {
+  class SimpleI18n extends I18nCore { t() { return super.t(...arguments).translation; } }
 
   t.test("delegates t to subclass", function(t) {
     let fallbackI18n = new SimpleI18n({foo: "foobar"});
@@ -155,8 +155,8 @@ test("I18nBase fallbackI18n option with subclassing", function(t) {
   t.end();
 });
 
-test("I18nBase#scoped", function(t) {
-  let i = new I18nBase({a: {b: {c: "foo %{a}"}}});
+test("I18nCore#scoped", function(t) {
+  let i = new I18nCore({a: {b: {c: "foo %{a}"}}});
   let scopedT = i.scoped("a.b");
 
   t.equal(scopedT("c", {a: 123}).translation, "foo 123", "returns wrapper function");

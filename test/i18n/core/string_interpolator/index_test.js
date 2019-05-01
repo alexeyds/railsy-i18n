@@ -1,5 +1,5 @@
 import test from "tape";
-import StringInterpolator from "i18n/base/string_interpolator";
+import StringInterpolator from "i18n/core/string_interpolator";
 
 test("StringInterpolator#interpolate", function(t) {
   t.test("simple interpolation", function(t) {

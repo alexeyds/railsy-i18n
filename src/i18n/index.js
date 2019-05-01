@@ -1,4 +1,3 @@
-
 import I18nStrict from "./strict";
 import I18nBasic from "./basic";
 

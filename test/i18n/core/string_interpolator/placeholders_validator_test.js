@@ -1,5 +1,5 @@
 import test from "tape";
-import PlaceholdersValidator from "i18n/base/string_interpolator/placeholders_validator";
+import PlaceholdersValidator from "i18n/core/string_interpolator/placeholders_validator";
 
 test("PlaceholdersValidator#filter", function(t) {
   t.test("extra replacements", function(t) {
