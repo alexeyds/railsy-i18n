@@ -1,4 +1,4 @@
-import I18nBase from "./base/index";
+import I18nBase from "./i18n_base";
 
 class MissingTranslationError extends Error {}
 class InterpolationError extends Error {}

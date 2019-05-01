@@ -1,4 +1,4 @@
-import I18nBase from "./base/index";
+import I18nBase from "./i18n_base";
 
 export default class I18nBasic extends I18nBase {
   t() {
