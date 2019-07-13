@@ -1,5 +1,5 @@
 import test from "tape";
-import NullArray from "utils/null_array";
+import NullArray from "null_array/null_array";
 
 test("NullArray constructor", function(t) {
   t.test("without args", function(t) {

@@ -1,5 +1,5 @@
-import { removeKeys, removeUndef } from "utils/object";
-import NullArray from "utils/null_array";
+import { removeKeys, removeUndef } from "utils/object_utils";
+import NullArray from "null_array/null_array";
 
 export default class PlaceholdersValidator {
   constructor(placeholders) {

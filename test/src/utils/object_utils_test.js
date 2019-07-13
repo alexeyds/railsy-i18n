@@ -1,5 +1,5 @@
 import test from "tape";
-import { removeKeys, removeUndef } from "utils/object";
+import { removeKeys, removeUndef } from "utils/object_utils";
 
 test("object utils removeKeys()", function(t) {
   let object = {a: 1, b: 2, c: 3, d: 4};
