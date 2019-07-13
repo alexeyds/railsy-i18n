@@ -31,14 +31,14 @@
   "author": "Alexey D",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "babel-plugin-module-resolver": "^3.1.1",
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "babel-plugin-module-resolver": "^3.2.0",
     "enhanced-tape-runner": "^1.1.2",
-    "eslint": "^5.6.1",
-    "rollup": "^0.67.3",
-    "rollup-plugin-babel": "^4.0.3",
+    "eslint": "^5.16.0",
+    "rollup": "^0.67.4",
+    "rollup-plugin-babel": "^4.3.3",
     "tap-spec": "^5.0.0",
-    "tape": "^4.9.1"
+    "tape": "^4.11.0"
   }
 }
