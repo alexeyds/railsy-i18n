@@ -8,7 +8,7 @@
     "src"
   ],
   "scripts": {
-    "test": "./test.sh test",
+    "test": "./test.sh test/src",
     "lint": "eslint {src,test}/**/*{js,jsx}",
     "build": "rollup -c"
   },

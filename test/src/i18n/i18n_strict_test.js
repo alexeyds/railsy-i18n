@@ -1,5 +1,5 @@
 import test from "tape";
-import I18n from "i18n_refactoring/main";
+import I18n from "i18n/main";
 
 test("I18n.Strict", function(t) {
   t.test("has same interface as regular I18n", function(t) {

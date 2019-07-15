@@ -1,5 +1,5 @@
 import test from "tape";
-import I18n from "i18n_refactoring/main";
+import I18n from "i18n/main";
 
 test("I18n.prototype.t() default pluralization", function(t) {
   t.test("doesnt attempt to pluralize without count key", function(t) {
