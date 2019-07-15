@@ -158,19 +158,19 @@ test("Compiled I18n: README.md examples", function(t) {
       items: "%{count} items"
     });
 
-    // Throws: Translation missing: title
+    // Throws: Translation missing: t("title", {})
     t.throws(() => strict.t("title"), /missing/);
 
-    // Throws: Missing interpolation variables: expected to receive {text} for translation at 'page.title'
+    // Throws: Missing interpolation variables: expected to receive {text} for "%{text} Page", but got: t("page.title", {})
     t.throws(() => strict.t("page.title"), /Missing/);
 
-    // Throws: Undefined interpolation variables for 'page.title': text
+    // Throws: Encountered undefined interpolation variables for t("page.title", { text: undefined })
     t.throws(() => strict.t("page.title", {text: undefined}), /undefined interpolation variables/);
 
     // Returns correct string if there are no errors
     t.equal(strict.t("page.title", { text: "Home" }), "Home Page"); //=> Home Page
 
-    // Throws: Translation missing: users
+    // Throws: Translation missing: t("users", { count: 0 })
     t.throws(() => strict.t("users", { count: 0 } ), /missing/);
   
     t.end();

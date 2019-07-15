@@ -201,29 +201,20 @@ let strict = new I18n.Strict({
   items: "%{count} items"
 });
 
-// Throws: Translation missing: title
+// Throws: Translation missing: t("title", {})
 strict.t("title");
 
-// Throws: Missing interpolation variables: expected to receive {text} for translation at 'page.title'
+// Throws: Missing interpolation variables: expected to receive {text} for "%{text} Page", but got: t("page.title", {})
 strict.t("page.title");
 
-// Throws: Undefined interpolation variables for 'page.title': text
+// Throws: Encountered undefined interpolation variables for t("page.title", { text: undefined })
 strict.t("page.title", {text: undefined});
-
-// Throws: Unused interpolation variables for 'page.title': id
-strict.t("page.title", { text: "Home", id: "123"} );
 
 // Returns correct string if there are no errors
 strict.t("page.title", { text: "Home" }); //=> Home Page
 
-// Throws: Translation missing: users
+// Throws: Translation missing: t("users", { count: 0 })
 strict.t("users", { count: 0 } );
-
-// Does not throw, count key is optional in this case because of the pluralization
-strict.t("users", { count: 1 } ); //=> One user
-
-// Throws, count key is required in this case
-strict.t("items");
 ```
 
 ## License
