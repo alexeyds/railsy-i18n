@@ -1,4 +1,4 @@
-import { accessNestedProperty, getValue } from "utils/object_utils";
+import { accessNestedProperty, getValueByKeys } from "utils/object_utils";
 import { humanize, interpolate, isString } from "utils/string_utils";
 import { getLastElement } from "utils/array_utils";
 
@@ -70,7 +70,7 @@ export default class I18n {
     let count = placeholders.count;
     let countName = this._getCountName(count);
 
-    return getValue(translation, countName);
+    return getValueByKeys(translation, countName);
   }
 
   _getCountName(count) {

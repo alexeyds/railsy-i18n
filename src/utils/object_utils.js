@@ -44,7 +44,7 @@ export function accessNestedProperty(object, keys) {
   }
 }
 
-export function getValue(object, keys) {
+export function getValueByKeys(object, keys) {
   if (Array.isArray(keys)) {
     let result;
 

@@ -1,5 +1,5 @@
 import test from "tape";
-import { removeKeys, removeUndef, accessNestedProperty, getValue } from "utils/object_utils";
+import { removeKeys, removeUndef, accessNestedProperty, getValueByKeys } from "utils/object_utils";
 
 test("object utils removeKeys()", function(t) {
   let object = {a: 1, b: 2, c: 3, d: 4};
@@ -63,22 +63,22 @@ test("object utils accessNestedProperty()", function(t) {
   t.end();
 });
 
-test("object utils getValue()", function(t) {
+test("object utils getValueByKeys()", function(t) {
   t.test("returns value", function(t) {
-    t.equal(getValue({a: 1}, "a"), 1);
+    t.equal(getValueByKeys({a: 1}, "a"), 1);
   
     t.end();
   });
 
   t.test("works with arrays", function(t) {
-    t.equal(getValue({a: 1}, ["a", "b"]), 1);
-    t.equal(getValue({b: 2}, ["a", "b"]), 2);
+    t.equal(getValueByKeys({a: 1}, ["a", "b"]), 1);
+    t.equal(getValueByKeys({b: 2}, ["a", "b"]), 2);
 
     t.end();
   });
 
   t.test("works with falsy keys", function(t) {
-    t.equal(getValue({a: null}, ["a", "b"]), null);
+    t.equal(getValueByKeys({a: null}, ["a", "b"]), null);
 
     t.end();
   });
