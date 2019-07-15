@@ -17,7 +17,7 @@ export default class I18n {
 
   t(path, placeholders) {
     placeholders = placeholders || {};
-    let pathArray = this._pathToArray(path);
+    let pathArray = this._pathToArray(this._scopedPath(path));
     let result = { success: false, value: null };
 
     let { success: isTranslationFound, value: translation } = accessNestedProperty(this._translations, pathArray);
@@ -31,11 +31,11 @@ export default class I18n {
     }
 
     if (result.success) {
-      return result.value;
+      return this._handleSuccessfulTranslation(result.value, pathArray, placeholders);
     } else if (this._fallbackI18n) {
       return this._fallbackI18n.t(...arguments);
     } else {
-      return humanize(getLastElement(pathArray));
+      return this._handleMissingTranslation(pathArray, placeholders);
     }
   }
 
@@ -46,14 +46,20 @@ export default class I18n {
     }.bind(this);
   }
 
-  _pathToArray(path) {
-    let pathArray = path.split(PATH_DELIMETER);
-
+  _scopedPath(path) {
     if (this._defaultScope) {
-      pathArray.unshift(this._defaultScope);
+      path = this._defaultScope + PATH_DELIMETER + path;
     }
 
-    return pathArray;
+    return path;
+  }
+
+  _pathToArray(path) {
+    return path.split(PATH_DELIMETER);
+  }
+
+  _arrayToPath(array) {
+    return array.join(PATH_DELIMETER);
   }
 
   _isCountable(translation, placeholders) {
@@ -74,6 +80,14 @@ export default class I18n {
     }
 
     return result;
+  }
+
+  _handleSuccessfulTranslation(translation, _pathArray, _placeholders) {
+    return translation;
+  }
+
+  _handleMissingTranslation(pathArray, _placeholders) {
+    return humanize(getLastElement(pathArray));
   }
 }
 

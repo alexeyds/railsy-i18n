@@ -1,5 +1,5 @@
 import test from "tape";
-import I18n from "i18n_refactoring/i18n";
+import I18n from "i18n_refactoring/main";
 
 test("I18n.prototype.t()", function(t) {
   t.test("returns simple translations", function(t) {

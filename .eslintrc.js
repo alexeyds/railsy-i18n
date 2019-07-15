@@ -9,6 +9,7 @@ module.exports = {
   }, 
   "extends": ["eslint:recommended"],
   "rules": {
+     "no-unused-vars": [2, {"args": "all", "argsIgnorePattern": "^_"}],
       "indent": [
           "error",
           2, { "SwitchCase": 1 }
