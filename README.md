@@ -180,8 +180,7 @@ customI18n.t("items", {count: 0}); //=> "My Zero2 items"
 This package also provides a Strict version of I18n class which throws an error if one of the following occurs:
 1. Translation cannot be found or is not a string.
 2. Some of the placeholders in translation string are not replaced.
-3. Some of the placeholders in translation string are not present, but were passed as `interpolationVariables`.
-4. Some of the `interpolationVariables` are undefined.
+3. Some of the `interpolationVariables` are undefined.
 
 The only intended use of `I18n.Strict` is testing, do not use it in production environments!
 
