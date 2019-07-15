@@ -1,6 +1,6 @@
 {
   "name": "railsy-i18n",
-  "version": "0.2.0-rc.1",
+  "version": "0.3.0",
   "description": "Node.js adaptation of Ruby I18n library",
   "main": "lib/i18n.js",
   "files": [
