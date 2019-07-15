@@ -14,7 +14,7 @@ export default class I18nStrict extends I18n {
       throw new InterpolationError(`Encountered undefined interpolation variables for ${functionCall}`);
     } else if (unconsumedPlaceholders.length > 0) {
       throw new InterpolationError(
-        `Missing interpolation variables: expected to receive ${unconsumedPlaceholders} for ${translation}, but got: ${functionCall}'`
+        `Missing interpolation variables: expected to receive {${unconsumedPlaceholders}} for "${translation}", but got: ${functionCall}'`
       );
     }
 
