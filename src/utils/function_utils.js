@@ -32,7 +32,9 @@ function presentPlainObject(obj) {
   if (obj === null) {
     return "null";
   } else if (Array.isArray(obj)) {
-    return "[" + obj.join(", ") + "]";
+    let presentedArray = obj.map(i => presentValue(i));
+
+    return "[" + presentedArray.join(", ") + "]";
   } else {
     let result = [];
 

@@ -42,6 +42,14 @@ test("function utils: presentFunctionCall", function(t) {
     t.end();
   });
 
+  t.test("correctly presents values inside of an array", function(t) {
+    let result = presentFunctionCall("test", [null]);
+
+    t.equal(result, 'test([null])');
+  
+    t.end();
+  });
+
   t.test("presents calls with empty object args", function(t) {
     let result = presentFunctionCall("test", {});
 
