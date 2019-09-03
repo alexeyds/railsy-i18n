@@ -1,6 +1,6 @@
-import { accessNestedProperty, getValueByKeys } from "utils/object_utils";
-import { humanize, interpolate, isString } from "utils/string_utils";
-import { getLastElement } from "utils/array_utils";
+import * as objectUtils from "utils/object_utils";
+import * as stringUtils from "utils/string_utils";
+import * as arrayUtils from "utils/array_utils";
 
 const PATH_DELIMETER = ".";
 
@@ -20,14 +20,14 @@ export default class I18n {
     let pathArray = this._pathToArray(this._scopedPath(path));
     let result = { success: false, value: null };
 
-    let { success: isTranslationFound, value: translation } = accessNestedProperty(this._translations, pathArray);
+    let { success: isTranslationFound, value: translation } = objectUtils.accessNestedProperty(this._translations, pathArray);
     if (isTranslationFound && this._isCountable(translation, placeholders)) {
       translation = this._applyCount(translation, placeholders);
     }
 
-    if (isTranslationFound && isString(translation)) {
+    if (isTranslationFound && stringUtils.isString(translation)) {
       result.success = true;
-      result.value = interpolate(translation, placeholders, this._delimeter);
+      result.value = stringUtils.interpolate(translation, placeholders, this._delimeter);
     }
 
     if (result.success) {
@@ -70,7 +70,7 @@ export default class I18n {
     let count = placeholders.count;
     let countName = this._getCountName(count);
 
-    return getValueByKeys(translation, countName);
+    return objectUtils.getValueByKeys(translation, countName);
   }
 
   _getCountName(count) {
@@ -87,7 +87,7 @@ export default class I18n {
   }
 
   _handleMissingTranslation(pathArray, _placeholders) {
-    return humanize(getLastElement(pathArray));
+    return stringUtils.humanize(arrayUtils.getLastElement(pathArray));
   }
 }
 
