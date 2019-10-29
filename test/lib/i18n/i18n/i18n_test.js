@@ -42,6 +42,14 @@ test("I18n.prototype.t()", function(t) {
     t.end();
   });
 
+  t.test("is binded to i18n", function(t) {
+    let { t: translate } = new I18n({hi: "hello"});
+
+    t.equal(translate("hi"), "hello");
+  
+    t.end();
+  });
+
   t.end();
 });
 
