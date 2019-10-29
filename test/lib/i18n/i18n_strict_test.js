@@ -37,6 +37,4 @@ test("I18n.Strict", function(t) {
 
     t.end();
   });
-
-  t.end();
 });
