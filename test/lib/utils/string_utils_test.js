@@ -1,4 +1,4 @@
-import test from "tape";
+import test from "enhanced-tape";
 import { humanize, capitalize, interpolate } from "utils/string_utils";
 
 test("string_utils: capitalize()", function(t) {

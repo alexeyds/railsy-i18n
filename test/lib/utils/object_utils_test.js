@@ -1,4 +1,4 @@
-import test from "tape";
+import test from "enhanced-tape";
 import { accessNestedProperty, getValueByKeys } from "utils/object_utils";
 
 test("object utils accessNestedProperty()", function(t) {

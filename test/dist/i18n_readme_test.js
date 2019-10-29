@@ -1,5 +1,5 @@
-import test from "tape";
-import I18n from "../../lib/i18n";
+import test from "enhanced-tape";
+import I18n from "../../dist/i18n";
 
 test("Compiled I18n: README.md examples", function(t) {
   t.test("main readme example", function(t) {

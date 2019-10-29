@@ -1,4 +1,4 @@
-import test from "tape";
+import test from "enhanced-tape";
 import { presentFunctionCall } from "utils/function_utils";
 
 test("function utils: presentFunctionCall", function(t) {

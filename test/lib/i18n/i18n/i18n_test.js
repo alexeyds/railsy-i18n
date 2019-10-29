@@ -1,4 +1,4 @@
-import test from "tape";
+import test from "enhanced-tape";
 import I18n from "i18n/main";
 
 test("I18n.prototype.t()", function(t) {

@@ -1,4 +1,4 @@
-import test from "tape";
+import test from "enhanced-tape";
 import { getLastElement } from "utils/array_utils";
 
 test("array_utils: getLastElement()", function(t) {

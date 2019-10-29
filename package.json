@@ -2,16 +2,17 @@
   "name": "railsy-i18n",
   "version": "0.3.0",
   "description": "Node.js adaptation of Ruby I18n library",
-  "main": "lib/i18n.js",
+  "main": "dist/railsy-i18n.js",
   "files": [
-    "lib",
-    "src"
+    "dist",
+    "lib"
   ],
   "scripts": {
-    "test": "./test.sh test/src",
-    "lint": "eslint {src,test}/**/*{js,jsx}",
-    "test-publish": "npm test && npm run-script build && npm publish",
-    "build": "rollup -c && ./test.sh test/lib"
+    "test": "./test.sh test/lib",
+    "lint": "eslint {lib,test}/**/*{js,jsx}",
+    "test-dist": "./test.sh test/dist",
+    "prepare": "npm test && npm run-script build && npm run-script test-dist",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -35,11 +36,12 @@
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
     "babel-plugin-module-resolver": "^3.2.0",
+    "enhanced-tape": "^0.1.1",
     "enhanced-tape-runner": "^1.1.2",
     "eslint": "^5.16.0",
     "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.3.3",
-    "tap-spec": "^5.0.0",
+    "tap-spec-dot": "^0.1.2",
     "tape": "^4.11.0"
   }
 }
