@@ -21,6 +21,7 @@ module.exports = {
       "semi": [
           "error",
           "always"
-      ]
+      ],
+      "no-prototype-builtins": 0,
   }
 };
