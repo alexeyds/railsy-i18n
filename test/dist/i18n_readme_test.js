@@ -1,5 +1,5 @@
 import test from "enhanced-tape";
-import I18n from "../../dist/i18n";
+import I18n from "../../dist/railsy-i18n";
 
 test("Compiled I18n: README.md examples", function(t) {
   t.test("main readme example", function(t) {
